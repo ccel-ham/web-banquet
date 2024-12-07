@@ -30,7 +30,7 @@ img {
 }
 
 /* パノラマビュー部分 */
-.container {
+.pano-container {
     display: flex;
     justify-content: center; /* 横方向の中央揃え */
     align-items: center;     /* 縦方向の中央揃え */
@@ -42,7 +42,6 @@ img {
     height: 50vw;
     max-height: 400px;
 }
-
 
 /* サムネイル部分 */
 .panorama-navs {

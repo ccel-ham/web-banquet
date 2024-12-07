@@ -21,7 +21,7 @@
         <!-- 360°画像表示部分 -->
         <section class="pano-container">
             <h2>360°画像の表示</h2>
-            <iframe width="600" height="400" allowfullscreen style="border-style:none;" src="pannellum/pannellum.htm=360panorama_01.jpg"></iframe>
+            <iframe width="600" height="400" allowfullscreen style="border-style:none;" src="pannellum/pannellum.htm#=360panorama_01.jpg"></iframe>
             <div id="panorama"></div>
         </section>
 
@@ -42,7 +42,7 @@
         // Pannellumで360°画像を表示
         pannellum.viewer('panorama', {
             type: 'equirectangular',
-            panorama: 'pannelum/360panorama_01.jpg', // 360°画像のファイル名を指定
+            panorama: "https://pannellum.org/images/alma.jpg", // 360°画像のファイル名を指定
             autoLoad: true,
         });
     </script>

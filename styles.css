@@ -31,7 +31,7 @@ img {
 
 /* パノラマビュー部分 */
 #panorama {
-    width: 75%;
+    width: 50%;
     height: 50vw;
     max-height: 400px;
 }

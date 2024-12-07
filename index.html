@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サンプルWebページ</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.pannellum.org/2.5/pannellum.js"></script>
+    <link rel="stylesheet" href="https://cdn.pannellum.org/2.5/pannellum.css">
+</head>
+<body>
+    <header>
+        <h1>サンプルページ</h1>
+    </header>
+    <main>
+        <section class="content">
+            <h2>見出し</h2>
+            <p>こちらはサンプルテキストです。必要に応じて自由に編集してください。</p>
+        </section>
+
+        <!-- 360°画像表示部分 -->
+        <section class="pano-container">
+            <h2>360°画像の表示</h2>
+            <div id="panorama"></div>
+        </section>
+
+        <!-- 画像上に星マークを表示 -->
+        <section class="star-image-container">
+            <h2>画像上の星マーク</h2>
+            <div class="star-wrapper">
+                <img src="sample-image.bmp" alt="サンプル画像">
+                <div class="star">⭐</div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 サンプルサイト</p>
+    </footer>
+
+    <script>
+        // Pannellumで360°画像を表示
+        pannellum.viewer('panorama', {
+            type: 'equirectangular',
+            panorama: '360-image.jpg', // 360°画像のファイル名を指定
+            autoLoad: true,
+        });
+    </script>
+</body>
+</html>

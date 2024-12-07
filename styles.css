@@ -76,6 +76,7 @@ footer {
 }
 
 /* 360°画像表示部分 */
+/*
 .pano-container {
     margin: 2rem 0;
 }
@@ -85,6 +86,7 @@ footer {
     height: 500px;
     margin: 0 auto;
 }
+*/
 
 /* 画像上に星マークを表示 */
 .star-image-container {

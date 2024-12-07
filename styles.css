@@ -30,11 +30,19 @@ img {
 }
 
 /* パノラマビュー部分 */
+.container {
+    display: flex;
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center;     /* 縦方向の中央揃え */
+    height: 100vh;           /* 親要素の高さを画面いっぱいに */
+}
+
 #panorama {
     width: 50%;
     height: 50vw;
     max-height: 400px;
 }
+
 
 /* サムネイル部分 */
 .panorama-navs {

@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background: #4CAF50;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+main {
+    padding: 2rem;
+    text-align: center;
+}
+
+.content {
+    margin-bottom: 2rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+footer {
+    background: #f4f4f4;
+    text-align: center;
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* 360°画像表示部分 */
+.pano-container {
+    margin: 2rem 0;
+}
+
+#panorama {
+    width: 100%;
+    height: 500px;
+    margin: 0 auto;
+}
+
+/* 画像上に星マークを表示 */
+.star-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.star-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.star-wrapper img {
+    display: block;
+}
+
+.star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: gold;
+}

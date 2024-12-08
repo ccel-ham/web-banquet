@@ -18,12 +18,6 @@
             <p>こちらはサンプルテキストです。必要に応じて自由に編集してください。</p>
         </section>
 
-        <!-- 360°画像表示部分 -->
-        <section class="pano-container">
-            <h2>360°画像の表示</h2>
-            <div id="panorama"></div>
-        </section>
-
         <!-- 画像上に星マークを表示 -->
         <section class="star-image-container">
             <h2>画像上の星マーク</h2>
@@ -32,6 +26,24 @@
                 <div class="star">⭐</div>
             </div>
         </section>
+
+        <!-- 360°画像表示部分 -->
+        <h2>360°画像の表示</h2>
+        <section class="pano-container">
+            <div id="panorama"></div>
+        </section>
+        
+        
+        <!-- サムネイル画像表示部分 -->
+        <section>
+            <ul class="panorama-navs">
+                <!-- サムネイルは正方形の画像を用意する事 -->
+                <li><a data-item-url="360panorama_01.jpg"><img src="360panorama_01.jpg" alt=""></a></li>
+                <li><a data-item-url="360panorama_02.jpg"><img src="360panorama_02.jpg" alt=""></a></li>
+                <li><a data-item-url="360panorama_03.jpg"><img src="360panorama_03.jpg" alt=""></a></li>
+            </ul>
+        </section>
+        
     </main>
     <footer>
         <p>&copy; 2024 サンプルサイト</p>

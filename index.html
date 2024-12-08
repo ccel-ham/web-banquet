@@ -35,25 +35,25 @@
         
         
         <!-- サムネイル画像表示部分 -->
-        <section>
             <ul class="panorama-navs">
                 <!-- サムネイルは正方形の画像を用意する事 -->
                 <li><a data-item-url="360panorama_01.jpg"><img src="360panorama_01.jpg" alt=""></a></li>
                 <li><a data-item-url="360panorama_02.jpg"><img src="360panorama_02.jpg" alt=""></a></li>
                 <li><a data-item-url="360panorama_03.jpg"><img src="360panorama_03.jpg" alt=""></a></li>
             </ul>
-        </section>
         
     </main>
+    <!--
     <footer>
         <p>&copy; 2024 サンプルサイト</p>
     </footer>
+    -->
 
     <script>
         // Pannellumで360°画像を表示
         pannellum.viewer('panorama', {
             type: 'equirectangular',
-            panorama: "panellum/360panorama_01.jpg", // 360°画像のファイル名を指定
+            panorama: "panellum/360panorama_02.jpg", // 360°画像のファイル名を指定
             autoLoad: true,
         });
     </script>

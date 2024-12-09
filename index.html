@@ -18,11 +18,9 @@
             <p>こちらはサンプルテキストです。必要に応じて自由に編集してください。</p>
         </section>
 
-        <!-- 画像上に星マークを表示 -->
         <section class="star-image-container">
-            <h2>画像上の星マーク</h2>
-            <div class="star-wrapper">
-                <img class="banquet_map" src="image/BF_MAP.jpg" alt="サンプル画像">
+            <div class="banquet_map">
+                <img id="map_image" src="image/BF_MAP.jpg" alt="サンプル画像">
                 <div class="star">★⭐</div>
             </div>
         </section>
@@ -37,19 +35,31 @@
         <!-- サムネイル画像表示部分 -->
         <ul class="panorama-navs">
             <!-- サムネイルは正方形の画像を用意する事 -->
-            <li><a data-item-url="image/B1_banquet_west.jpg"><img src="image/B1_banquet_west.jpg" alt=""></a></li>
-            <li><a data-item-url="image/B1_banquet_center.jpg"><img src="image/B1_banquet_center.jpg" alt=""></a></li>
-            <li><a data-item-url="image/B1_banquet_east.jpg"><img src="image/B1_banquet_east.jpg" alt=""></a></li>
+            <li><a data-item-key="image1"><img src="image/B1_banquet_west.jpg" alt=""></a></li>
+            <li><a data-item-key="image2"><img src="image/B1_banquet_center.jpg" alt=""></a></li>
+            <li><a data-item-key="image3"><img src="image/B1_banquet_east.jpg" alt=""></a></li>
         </ul>
         
     </main>
-    <!--
     <footer>
         <p>&copy; 2024 サンプルサイト</p>
     </footer>
-    -->
 
     <script>
+        const imageUrls = {
+            "image1": {
+                "panorama_image": "image/B1_banquet_west.jpg",
+                "map_image": "image/B1_banquet_west.jpg",
+            },
+            "image2": {
+                "panorama_image": "image/B1_banquet_center.jpg",
+                "map_image": "image/B1_banquet_center.jpg",
+            },
+            "image3": {
+                "panorama_image": "image/B1_banquet_east.jpg",
+                "map_image": "image/B1_banquet_east.jpg",
+            }
+        };
         // 読み込み時の
         pannellum.viewer('panorama', {
             type: 'equirectangular',
@@ -62,13 +72,16 @@
                 event.preventDefault(); // リンクのデフォルト動作をキャンセル
                 document.getElementById('panorama').innerHTML = ''; // #panoramaの内容をクリア
                 // data-item-url属性を取得
-                var url = this.getAttribute('data-item-url');
-                // pannellum.viewerを呼び出し
-                pannellum.viewer('panorama', {
-                    "type": "equirectangular",
-                    "panorama": url,
-                    "autoLoad": true
-                });
+                var data_key = this.getAttribute('data-item-key');
+                if (imageUrls[data_key]) {
+                    document.getElementById('map_image').src = imageUrls[data_key].map_image;
+                    // pannellum.viewerを呼び出し
+                    pannellum.viewer('panorama', {
+                        "type": "equirectangular",
+                        "panorama": imageUrls[data_key].panorama_image,
+                        "autoLoad": true
+                    });
+                }
             });
         });
     </script>

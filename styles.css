@@ -79,6 +79,7 @@ footer {
 /* 画像上に星マークを表示 */
 .banquet_map{
     width:75%;
+    height: auto;
 }
 
 .star-image-container {
@@ -102,7 +103,7 @@ footer {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
+    transform: translateX(-50%);/* 横方向の位置調整 */
+    font-size: 5vw;
     color: red;
 }

@@ -77,7 +77,7 @@ footer {
 }
 
 /* 画像上に星マークを表示 */
-.map{
+.banquet_map{
     width:75%;
 }
 
@@ -89,6 +89,9 @@ footer {
 .star-wrapper {
     position: relative;
     display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .star-wrapper img {

@@ -33,12 +33,23 @@ main {
     height: 50vh;           /* 親要素の高さを画面いっぱいに */
 }
 
+/* MAP画像 */
+#map_image {
+    max-width: 50%;
+    max-height: 100%;
+    object-fit: contain;
+    margin-right: 1%;
+    display: block;
+    aspect-ratio: 2 / 1; /* 横:縦 = 2:1 の比率を設定 */
+}
+
+/* パノラマ画像 */
 #panorama {
     max-width: 75%;
     max-height: 100%;
     object-fit: contain;
     display: block;
-    margin-right: 1%;
+    margin-left: 1%;
     aspect-ratio: 2 / 1; /* 横:縦 = 2:1 の比率を設定 */
 }
 
@@ -70,16 +81,6 @@ main {
 .panorama-navs li > a:hover img {
     opacity: 0.65;
     cursor: pointer;
-}
-
-/* MAP画像 */
-#map_image {
-    max-width: 50%;
-    max-height: 100%;
-    object-fit: contain;
-    margin-left: 1%;
-    display: block;
-    aspect-ratio: 2 / 1; /* 横:縦 = 2:1 の比率を設定 */
 }
 
 footer {

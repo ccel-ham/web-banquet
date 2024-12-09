@@ -76,34 +76,15 @@ footer {
     width: 100%;
 }
 
-/* 画像上に星マークを表示 */
-.banquet_map{
+/* MAP画像 */
+.banquet_map {
+    display: flex;
+    justify-content: center; /* 横方向の中央揃え */
+    align-items: center;     /* 縦方向の中央揃え */
+    height: 50vh;      
+}
+
+.banquet_map img {
     width:75%;
     height: auto;
-}
-
-.star-image-container {
-    position: relative;
-    display: inline-block;
-}
-
-.star-wrapper {
-    position: relative;
-    display: inline-block;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.star-wrapper img {
-    display: block;
-}
-
-.star {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);/* 横方向の位置調整 */
-    font-size: 5vw;
-    color: red;
 }

@@ -33,7 +33,7 @@ main {
 #panorama {
     width: 50%;
     height: 50vw;
-    max-height: 400px;
+    max-height: 600px;
 }
 
 /* サムネイル部分 */
@@ -96,5 +96,5 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2rem;
-    color: gold;
+    color: red;
 }

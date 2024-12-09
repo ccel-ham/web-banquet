@@ -22,8 +22,8 @@
         <section class="star-image-container">
             <h2>画像上の星マーク</h2>
             <div class="star-wrapper">
-                <img src="map.jpg" alt="サンプル画像">
-                <div class="star">⭐</div>
+                <img src="image/BF_MAP.jpg" alt="サンプル画像">
+                <div class="star">★⭐</div>
             </div>
         </section>
 
@@ -37,9 +37,9 @@
         <!-- サムネイル画像表示部分 -->
         <ul class="panorama-navs">
             <!-- サムネイルは正方形の画像を用意する事 -->
-            <li><a data-item-url="panellum/360panorama_01.jpg"><img src="panellum/360panorama_01.jpg" alt=""></a></li>
-            <li><a data-item-url="panellum/360panorama_02.jpg"><img src="panellum/360panorama_02.jpg" alt=""></a></li>
-            <li><a data-item-url="panellum/360panorama_03.jpg"><img src="panellum/360panorama_03.jpg" alt=""></a></li>
+            <li><a data-item-url="image/B1_banquet_west.jpg"><img src="image/B1_banquet_west.jpg" alt=""></a></li>
+            <li><a data-item-url="image/B1_banquet_center.jpg"><img src="image/B1_banquet_center.jpg" alt=""></a></li>
+            <li><a data-item-url="image/B1_banquet_east.jpg"><img src="image/B1_banquet_east.jpg" alt=""></a></li>
         </ul>
         
     </main>
@@ -53,7 +53,7 @@
         // 読み込み時の
         pannellum.viewer('panorama', {
             type: 'equirectangular',
-            panorama: "panellum/360panorama_02.jpg", // 360°画像のファイル名を指定
+            panorama: "image/B1_banquet_center.jpg", // 360°画像のファイル名を指定
             autoLoad: true,
         });
         // サムネイルをクリックしたときの挙動

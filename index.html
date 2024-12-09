@@ -56,6 +56,17 @@
             panorama: "panellum/360panorama_02.jpg", // 360°画像のファイル名を指定
             autoLoad: true,
         });
+        // サムネイルをクリックしたときの挙動
+        $('.panorama-navs a').on('click', function() {
+        $('#panorama').html('');
+        var url = $(this).attr('data-item-url');
+        pannellum.viewer('panorama', {
+            "type": "equirectangular",
+            "panorama": url,
+            "autoLoad": true
+        });
+        return false;
+        });
     </script>
 </body>
 </html>

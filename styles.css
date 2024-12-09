@@ -34,7 +34,7 @@ main {
 }
 
 #panorama {
-    max-width: 100%;
+    max-width: 75%;
     max-height: 100%;
     object-fit: contain;
     display: block;

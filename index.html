@@ -50,22 +50,26 @@
     -->
 
     <script>
-        // Pannellumで360°画像を表示
+        // 読み込み時の
         pannellum.viewer('panorama', {
             type: 'equirectangular',
             panorama: "panellum/360panorama_02.jpg", // 360°画像のファイル名を指定
             autoLoad: true,
         });
         // サムネイルをクリックしたときの挙動
-        $('.panorama-navs a').on('click', function() {
-        $('#panorama').html('');
-        var url = $(this).attr('data-item-url');
-        pannellum.viewer('panorama', {
-            "type": "equirectangular",
-            "panorama": url,
-            "autoLoad": true
-        });
-        return false;
+        document.querySelectorAll('.panorama-navs a').forEach(function(anchor) {
+            anchor.addEventListener('click', function(event) {
+                event.preventDefault(); // リンクのデフォルト動作をキャンセル
+                document.getElementById('panorama').innerHTML = ''; // #panoramaの内容をクリア
+                // data-item-url属性を取得
+                var url = this.getAttribute('data-item-url');
+                // pannellum.viewerを呼び出し
+                pannellum.viewer('panorama', {
+                    "type": "equirectangular",
+                    "panorama": url,
+                    "autoLoad": true
+                });
+            });
         });
     </script>
 </body>

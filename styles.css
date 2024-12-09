@@ -32,8 +32,9 @@ main {
 
 #panorama {
     width: 50%;
-    height: 50vw;
-    max-height: 600px;
+    height: auto;
+    aspect-ratio: 2 / 1; /* 横:縦 = 2:1 の比率を設定 */
+    object-fit: cover; /* 画像のトリミング方法を調整 */
 }
 
 /* サムネイル部分 */
@@ -76,6 +77,10 @@ footer {
 }
 
 /* 画像上に星マークを表示 */
+.map{
+    width:75%;
+}
+
 .star-image-container {
     position: relative;
     display: inline-block;

@@ -22,19 +22,12 @@ main {
     margin-bottom: 2rem;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
 /* パノラマビュー部分 */
 .pano-container {
     display: flex;
     justify-content: center; /* 横方向の中央揃え */
     align-items: center;     /* 縦方向の中央揃え */
-    height: 100vh;           /* 親要素の高さを画面いっぱいに */
+    height: 50vh;           /* 親要素の高さを画面いっぱいに */
 }
 
 #panorama {
@@ -81,19 +74,6 @@ footer {
     bottom: 0;
     width: 100%;
 }
-
-/* 360°画像表示部分 */
-/*
-.pano-container {
-    margin: 2rem 0;
-}
-
-#panorama {
-    width: 100%;
-    height: 500px;
-    margin: 0 auto;
-}
-*/
 
 /* 画像上に星マークを表示 */
 .star-image-container {

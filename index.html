@@ -30,9 +30,30 @@
         <section class="thumbnail">
             <ul class="panorama-navs">
                 <!-- サムネイルは正方形の画像を用意する事 -->
-                <li><a data-item-key="image1"><img src="image/B1_banquet_west.jpg" alt=""></a></li>
-                <li><a data-item-key="image2"><img src="image/B1_banquet_center.jpg" alt=""></a></li>
-                <li><a data-item-key="image3"><img src="image/B1_banquet_east.jpg" alt=""></a></li>
+                <li>
+                    <a data-item-key="image1">
+                        <div class="thumbnail-container">
+                            <img src="image/banquet_center.JPG" alt="">
+                            <span class="thumbnail-label">Banquet</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a data-item-key="image2">
+                        <div class="thumbnail-container">
+                            <img src="image/east_toilet_front.JPG" alt="">
+                            <span class="thumbnail-label">East Toilet</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a data-item-key="image3">
+                        <div class="thumbnail-container">
+                            <img src="image/west_toilet_front.JPG" alt="">
+                            <span class="thumbnail-label">West Toilet</span>
+                        </div>
+                    </a>
+                </li>
             </ul>
         </section>
     </main>
@@ -43,22 +64,22 @@
     <script>
         const imageUrls = {
             "image1": {
-                "panorama_image": "image/banquet_northwest.JPG",
-                "map_image": "image/BF_MAP_west.jpg",
+                "panorama_image": "image/banquet_center.JPG",
+                "map_image": "image/map_banquet.jpg",
             },
             "image2": {
-                "panorama_image": "image/banquet_center.JPG",
-                "map_image": "image/BF_MAP_center.jpg",
+                "panorama_image": "image/west_toilet_front.JPG",
+                "map_image": "image/map_west_toilet_front.jpg",
             },
             "image3": {
-                "panorama_image": "image/banquet_southwest.JPG",
-                "map_image": "image/BF_MAP_east.jpg",
+                "panorama_image": "image/east_toilet_front.JPG",
+                "map_image": "image/map_east_toilet_front.jpg",
             }
         };
         // 読み込み時の
         pannellum.viewer('panorama', {
             type: 'equirectangular',
-            panorama: "image/B1_banquet_center.jpg", // 360°画像のファイル名を指定
+            panorama: "image/banquet_center.JPG", // 360°画像のファイル名を指定
             autoLoad: true,
         });
         // サムネイルをクリックしたときの挙動

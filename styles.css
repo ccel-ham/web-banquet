@@ -45,7 +45,7 @@ main {
 
 /* パノラマ画像 */
 #panorama {
-    max-width: 75%;
+    max-width: 50%;
     max-height: 100%;
     object-fit: contain;
     display: block;
@@ -81,6 +81,31 @@ main {
 .panorama-navs li > a:hover img {
     opacity: 0.65;
     cursor: pointer;
+}
+
+.thumbnail-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.thumbnail-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.thumbnail-label {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7); /* 半透明の背景 */
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 2vw;
+    border-radius: 5px;
+    white-space: nowrap;
 }
 
 footer {

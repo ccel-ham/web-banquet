@@ -29,11 +29,10 @@
         <!-- サムネイル画像表示部分 -->
         <section class="thumbnail">
             <ul class="panorama-navs">
-                <!-- サムネイルは正方形の画像を用意する事 -->
                 <li>
                     <a data-item-key="image1">
                         <div class="thumbnail-container">
-                            <img src="image/banquet_center.JPG" alt="">
+                            <img src="image/banquet_northwest.JPG" alt="">
                             <span class="thumbnail-label">Banquet</span>
                         </div>
                     </a>
@@ -42,15 +41,55 @@
                     <a data-item-key="image2">
                         <div class="thumbnail-container">
                             <img src="image/east_toilet_front.JPG" alt="">
-                            <span class="thumbnail-label">East Toilet</span>
+                            <span class="thumbnail-label">East Corridor</span>
                         </div>
                     </a>
                 </li>
                 <li>
                     <a data-item-key="image3">
                         <div class="thumbnail-container">
+                            <img src="image/east_toilet_man.JPG" alt="">
+                            <span class="thumbnail-label">East Toilet【M】</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a data-item-key="image4">
+                        <div class="thumbnail-container">
+                            <img src="image/east_toilet_woman.JPG" alt="">
+                            <span class="thumbnail-label">East Toilet【W】</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a data-item-key="image5">
+                        <div class="thumbnail-container">
+                            <img src="image/west_corridor.JPG" alt="">
+                            <span class="thumbnail-label">West EV Hall</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a data-item-key="image6">
+                        <div class="thumbnail-container">
                             <img src="image/west_toilet_front.JPG" alt="">
-                            <span class="thumbnail-label">West Toilet</span>
+                            <span class="thumbnail-label">West Corridor</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a data-item-key="image7">
+                        <div class="thumbnail-container">
+                            <img src="image/west_toilet_man.JPG" alt="">
+                            <span class="thumbnail-label">West Toilet【M】</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a data-item-key="image8">
+                        <div class="thumbnail-container">
+                            <img src="image/west_toilet_woman.JPG" alt="">
+                            <span class="thumbnail-label">West Toilet【W】</span>
                         </div>
                     </a>
                 </li>
@@ -64,22 +103,42 @@
     <script>
         const imageUrls = {
             "image1": {
-                "panorama_image": "image/banquet_center.JPG",
+                "panorama_image": "image/banquet_northwest.JPG",
                 "map_image": "image/map_banquet.jpg",
             },
             "image2": {
+                "panorama_image": "image/east_toilet_front.JPG",
+                "map_image": "image/map_east_toilet_front.jpg",
+            },
+            "image3": {
+                "panorama_image": "image/east_toilet_man.JPG",
+                "map_image": "image/map_east_toilet_man.jpg",
+            },
+            "image4": {
+                "panorama_image": "image/east_toilet_woman.JPG",
+                "map_image": "image/map_east_toilet_woman.jpg",
+            },
+            "image5": {
+                "panorama_image": "image/west_corridor.JPG",
+                "map_image": "image/map_west_corridor.jpg",
+            },
+            "image6": {
                 "panorama_image": "image/west_toilet_front.JPG",
                 "map_image": "image/map_west_toilet_front.jpg",
             },
-            "image3": {
-                "panorama_image": "image/east_toilet_front.JPG",
-                "map_image": "image/map_east_toilet_front.jpg",
+            "image7": {
+                "panorama_image": "image/west_toilet_man.JPG",
+                "map_image": "image/map_west_toilet_man.jpg",
+            },
+            "image8": {
+                "panorama_image": "image/west_toilet_woman.JPG",
+                "map_image": "image/map_west_toilet_woman.jpg",
             }
         };
         // 読み込み時の
         pannellum.viewer('panorama', {
             type: 'equirectangular',
-            panorama: "image/banquet_center.JPG", // 360°画像のファイル名を指定
+            panorama: "image/banquet_northwest.JPG", // 360°画像のファイル名を指定
             autoLoad: true,
         });
         // サムネイルをクリックしたときの挙動

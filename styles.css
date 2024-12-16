@@ -57,7 +57,7 @@ main {
 .panorama-navs {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4列 */
-    gap: 2vw; /* 各サムネイル間の隙間 */
+    /*gap: 2vw; /* 各サムネイル間の隙間 */
     list-style: none;
     padding: 0;
     margin-top: 0.5vw;

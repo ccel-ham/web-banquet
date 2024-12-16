@@ -96,19 +96,20 @@ main {
 
 .thumbnail-label {
     position: absolute;
+    width: 100%;
     bottom: 0.5vw;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.7); /* 半透明の背景 */
     color: #fff;
-    padding: 5px 10px;
     font-size: 2vw;
-    border-radius: 5px;
+    padding: 0.5vw;
     white-space: nowrap;
 }
 
 footer {
     background: #000000;
+    color: #ffffff;
     text-align: center;
     padding: 1rem 0;
     bottom: 0;

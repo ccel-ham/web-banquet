@@ -55,17 +55,18 @@ main {
 
 /* サムネイル部分 */
 .panorama-navs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4列 */
+    gap: 2vw; /* 各サムネイル間の隙間 */
     list-style: none;
-    display: flex;
-    justify-content: center;
-    padding-left: 0;
-    margin-left: -3px;
-    margin-right: -3px;
+    padding: 0;
+    margin: 0;
 }
 
 .panorama-navs li {
-    width: calc(100% / 7);
+    width: 80%;
     padding: 3px 5px;
+    margin: 0 auto;
 }
 
 .panorama-navs li > a {
@@ -85,14 +86,16 @@ main {
 
 .thumbnail-container {
     position: relative;
-    display: inline-block;
-    text-align: center;
+    height: 50%;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 正方形にする */
+    overflow: hidden;
 }
 
 .thumbnail-container img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover; /* 画像を正方形内に調整 */
 }
 
 .thumbnail-label {

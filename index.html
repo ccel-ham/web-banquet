@@ -14,9 +14,9 @@
     </header>
     <main>
         <section class="content">
-            <h2>会場確認</h2>
-            <p>サムネイルをクリックすると360℃画像が表示されます</p>
-            <p>撮影位置は左のMAPに表示されます。</p>
+            <h2>使い方</h2>
+            <p>・サムネイルをクリックすると360℃画像が表示されます</p>
+            <p>・撮影位置は左のMAPにて確認できます</p>
         </section>
         
         <!-- 360°画像表示部分 -->
@@ -155,7 +155,11 @@
                     pannellum.viewer('panorama', {
                         "type": "equirectangular",
                         "panorama": imageUrls[data_key].panorama_image,
-                        "autoLoad": true
+                        "autoLoad": true,
+                        "hfov": 170,
+                        "hfovMax": 170,
+                        "hfovMin": 30,
+                        "showZoomCtrl": true // ズームボタンを表示して確認
                     });
                 }
             });

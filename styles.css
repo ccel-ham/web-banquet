@@ -60,7 +60,7 @@ main {
     gap: 2vw; /* 各サムネイル間の隙間 */
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin-top: 0.5vw;
 }
 
 .panorama-navs li {
@@ -74,11 +74,6 @@ main {
     background-color: #fff;
 }
 
-.panorama-navs li > a > img {
-    width: 100%;
-    height: auto;
-}
-
 .panorama-navs li > a:hover img {
     opacity: 0.65;
     cursor: pointer;
@@ -86,9 +81,9 @@ main {
 
 .thumbnail-container {
     position: relative;
-    height: 50%;
+    height: auto;
     width: 100%;
-    aspect-ratio: 1 / 1; /* 正方形にする */
+    aspect-ratio: 2 / 1; /* 長方形にする */
     overflow: hidden;
 }
 
@@ -100,7 +95,7 @@ main {
 
 .thumbnail-label {
     position: absolute;
-    bottom: 10px;
+    bottom: 0.5vw;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.7); /* 半透明の背景 */

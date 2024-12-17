@@ -23,6 +23,7 @@ main {
 
 .content {
     text-align: left;
+    margin: auto;
     margin-bottom: 2rem;
 }
 

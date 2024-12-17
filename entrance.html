@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>昼食会場Web確認【ホテル本能寺】</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.pannellum.org/2.5/pannellum.js"></script>
+    <link rel="stylesheet" href="https://cdn.pannellum.org/2.5/pannellum.css">
+</head>
+<body>
+    <header>
+        <h1>昼食会場Web確認</h1>
+    </header>
+    <main>
+        <section class="content">
+            <h2>使い方</h2>
+            <p>・サムネイルをクリックすると360℃画像が表示されます</p>
+            <p>・撮影位置は左のMAPにて確認できます</p>
+        </section>
+        
+        <!-- 360°画像表示部分 -->
+        <h2>360°画像の表示</h2>
+        <section class="pano-container">
+            <img id="map_image" src="image/map_entrance.jpg" alt="サンプル画像">
+            <div id="panorama"></div>
+        </section>
+        
+        
+        <!-- サムネイル画像表示部分 -->
+        <section class="thumbnail">
+            <ul class="panorama-navs">
+                <li>
+                    <a data-item-key="image1">
+                        <div class="thumbnail-container">
+                            <img src="image/entrance.JPG" alt="">
+                            <span class="thumbnail-label">Banquet</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a data-item-key="image2">
+                        <div class="thumbnail-container">
+                            <img src="image/outside.JPG" alt="">
+                            <span class="thumbnail-label">East Corridor</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 昼食会場Web確認</p>
+    </footer>
+
+    <script>
+        const imageUrls = {
+            "image1": {
+                "panorama_image": "image/entrance.JPG",
+                "map_image": "image/map_entrance.jpg",
+            },
+            "image2": {
+                "panorama_image": "image/outside.JPG",
+                "map_image": "image/map_outside.jpg",
+            }
+        };
+        // 読み込み時の
+        pannellum.viewer('panorama', {
+            type: 'equirectangular',
+            panorama: "image/banquet_northwest.JPG", // 360°画像のファイル名を指定
+            autoLoad: true,
+        });
+        // サムネイルをクリックしたときの挙動
+        document.querySelectorAll('.panorama-navs a').forEach(function(anchor) {
+            anchor.addEventListener('click', function(event) {
+                event.preventDefault(); // リンクのデフォルト動作をキャンセル
+                document.getElementById('panorama').innerHTML = ''; // #panoramaの内容をクリア
+                // data-item-url属性を取得
+                var data_key = this.getAttribute('data-item-key');
+                if (imageUrls[data_key]) {
+                    document.getElementById('map_image').src = imageUrls[data_key].map_image;
+                    // pannellum.viewerを呼び出し
+                    pannellum.viewer('panorama', {
+                        "type": "equirectangular",
+                        "panorama": imageUrls[data_key].panorama_image,
+                        "autoLoad": true,
+                        "hfov": 170,
+                        "hfovMax": 170,
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

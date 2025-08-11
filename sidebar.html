@@ -19,7 +19,7 @@
       z-index:9999;
       align-items:center;
     }
-    .forward-group .back-group{
+    .forward-group, .back-group{
       display:flex;
       gap:12px;
       justify-content:center;
@@ -43,8 +43,10 @@
     }
     button.ctrl:active{transform:translateY(1px)}
     .fs-btn{position:fixed;right:16px;top:16px;z-index:9999}
+    .menu-btn{position:fixed;left:16px;top:16px;z-index:9999;font-size:20px}
     .hidden { display: none; }
 
+    /* オーバーレイ */
     #overlay {
       position: fixed;
       top: 0;
@@ -78,12 +80,48 @@
     .stretcher:nth-child(4) { animation-delay: -0.9s; }
     .stretcher:nth-child(5) { animation-delay: -0.8s; }
     @keyframes stretch {
-      0%, 40%, 100% {
-        transform: scaleY(0.4);
-      }
-      20% {
-        transform: scaleY(1.0);
-      }
+      0%, 40%, 100% { transform: scaleY(0.4); }
+      20% { transform: scaleY(1.0); }
+    }
+
+    /* サイドバー */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background: rgba(30,30,30,0.95);
+      color: #fff;
+      padding: 20px;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.3);
+      transition: left 0.3s ease;
+      z-index: 9998;
+      overflow-y: auto;
+    }
+    #sidebar.open {
+      left: 0;
+    }
+    #sidebar h2 {
+      font-size: 18px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 8px;
+    }
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #sidebar li {
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    #sidebar li:hover {
+      background: rgba(255,255,255,0.1);
     }
   </style>
 </head>
@@ -104,14 +142,20 @@
   </div>
 
   <div id="overlay">
-  <div class="stretcher"></div>
-  <div class="stretcher"></div>
-  <div class="stretcher"></div>
-  <div class="stretcher"></div>
-  <div class="stretcher"></div>
+    <div class="stretcher"></div>
+    <div class="stretcher"></div>
+    <div class="stretcher"></div>
+    <div class="stretcher"></div>
+    <div class="stretcher"></div>
   </div>
   
   <button id="fs" class="ctrl fs-btn">フルスクリーン</button>
+  <button id="menu" class="ctrl menu-btn">☰</button>
+
+  <div id="sidebar">
+    <h2>シーン選択</h2>
+    <ul id="sceneList"></ul>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   
@@ -135,19 +179,17 @@ function hideOverlay() {
  overlay.classList.remove('is-visible');
 }
 
-
 function loadScene(sceneId) {
     overlay.classList.add('is-visible');
     currentScene = sceneId;
 
-    // 既存ビューアを破棄して再生成
     document.getElementById('panorama').innerHTML = '';
     viewer = pannellum.viewer('panorama', {
         type: 'equirectangular',
         panorama: scenes[sceneId].img,
         autoLoad: true,
         showControls: false,
-        "hfov": 120 // ここで水平視野角を指定
+        hfov: 120
     });
 
     viewer.on('load', () => {
@@ -157,7 +199,6 @@ function loadScene(sceneId) {
 }
 
 function updateButtons() {
-
   const nextNodes = scenes[currentScene].next;
   const prevNodes = scenes[currentScene].prev;
 
@@ -169,48 +210,44 @@ function updateButtons() {
   const bbtnRight = document.getElementById('bbtnRight');
 
   // すべて非表示
-  fbtnLeft.classList.add('hidden');
-  fbtnForward.classList.add('hidden');
-  fbtnRight.classList.add('hidden');
-  bbtnLeft.classList.add('hidden');
-  bbtnForward.classList.add('hidden');
-  bbtnRight.classList.add('hidden');
+  [fbtnLeft,fbtnForward,fbtnRight,bbtnLeft,bbtnForward,bbtnRight].forEach(btn=>btn.classList.add('hidden'));
 
   // next配列に応じて表示
-  if (nextNodes.length >= 1) {
-      fbtnForward.classList.remove('hidden');
-      fbtnForward.onclick = () => loadScene(nextNodes[0]);
-  }
-  if (nextNodes.length >= 2) {
-      fbtnLeft.classList.remove('hidden');
-      fbtnLeft.onclick = () => loadScene(nextNodes[1]);
-  }
-  if (nextNodes.length >= 3) {
-      fbtnRight.classList.remove('hidden');
-      fbtnRight.onclick = () => loadScene(nextNodes[2]);
-  }
+  if (nextNodes.length >= 1) { fbtnForward.classList.remove('hidden'); fbtnForward.onclick = () => loadScene(nextNodes[0]); }
+  if (nextNodes.length >= 2) { fbtnLeft.classList.remove('hidden'); fbtnLeft.onclick = () => loadScene(nextNodes[1]); }
+  if (nextNodes.length >= 3) { fbtnRight.classList.remove('hidden'); fbtnRight.onclick = () => loadScene(nextNodes[2]); }
   // prev配列に応じて表示
-  if (prevNodes.length >= 1) {
-      bbtnForward.classList.remove('hidden');
-      bbtnForward.onclick = () => loadScene(prevNodes[0]);
-  }
-  if (prevNodes.length >= 2) {
-      bbtnLeft.classList.remove('hidden');
-      bbtnLeft.onclick = () => loadScene(prevNodes[1]);
-  }
-  if (prevNodes.length >= 3) {
-      bbtnRight.classList.remove('hidden');
-      bbtnRight.onclick = () => loadScene(prevNodes[2]);
-  }
-
+  if (prevNodes.length >= 1) { bbtnForward.classList.remove('hidden'); bbtnForward.onclick = () => loadScene(prevNodes[0]); }
+  if (prevNodes.length >= 2) { bbtnLeft.classList.remove('hidden'); bbtnLeft.onclick = () => loadScene(prevNodes[1]); }
+  if (prevNodes.length >= 3) { bbtnRight.classList.remove('hidden'); bbtnRight.onclick = () => loadScene(prevNodes[2]); }
 }
 
+// フルスクリーン
 document.getElementById('fs').addEventListener('click', ()=>{
     const el = document.documentElement;
     if(!document.fullscreenElement) el.requestFullscreen().catch(()=>{});
     else document.exitFullscreen().catch(()=>{});
 });
 
+// メニュー開閉
+const menuBtn = document.getElementById('menu');
+menuBtn.addEventListener('click', ()=>{
+  document.getElementById('sidebar').classList.toggle('open');
+  menuBtn.classList.add('hidden');
+});
+
+// サイドバーリスト生成
+const sceneList = document.getElementById('sceneList');
+for (const key in scenes) {
+  const li = document.createElement('li');
+  li.textContent = key;
+  li.onclick = () => {
+    loadScene(key);
+    document.getElementById('sidebar').classList.remove('open');
+    menuBtn.classList.remove('hidden');
+  };
+  sceneList.appendChild(li);
+}
 
 loadScene(currentScene);
 </script>

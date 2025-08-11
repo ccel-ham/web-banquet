@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>360° Viewer — Fullscreen</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+  <style>
+    html,body{height:100%;margin:0}
+    #panorama{width:100%;height:100vh;background:#000}
+    .controls{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:24px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      z-index:9999;
+      align-items:center;
+    }
+    .forward-group {
+      display:flex;
+      gap:12px;
+      justify-content:center;
+    }
+    button.ctrl{
+      appearance:none;
+      border:0;
+      padding:12px 18px;
+      font-size:16px;
+      border-radius:10px;
+      background:rgba(0,0,0,0.6);
+      color:#fff;
+      backdrop-filter:blur(4px);
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35)
+    }
+    button.ctrl:disabled{
+      background:rgba(80,80,80,0.6);
+      color:#aaa;
+      cursor:not-allowed
+    }
+    button.ctrl:active{transform:translateY(1px)}
+    .fs-btn{position:fixed;right:16px;top:16px;z-index:9999}
+
+    /* ここからオーバーレイのスタイルを修正 */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      z-index: 10000;
+    }
+    #overlay.is-visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    /* スピナーのスタイル */
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-top: 5px solid #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    /* 回転アニメーションの定義 */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="panorama"></div>
+
+  <div class="controls">
+    <div class="forward-group">
+      <button id="btnLeft" class="ctrl">◀ 左</button>
+      <button id="btnForward" class="ctrl">▲ 進む</button>
+      <button id="btnRight" class="ctrl">右 ▶</button>
+    </div>
+    <button id="btnBack" class="ctrl">▼ 戻る</button>
+  </div>
+
+  <button id="fs" class="ctrl fs-btn">フルスクリーン</button>
+
+    <div id="overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  
+<script>
+const scenes = {
+    A: { img: 'image/outside.JPG', next: ['B'], prev: null },
+    B: { img: 'image/entrance.JPG', next: ['C', 'D'], prev: 'A' },
+    C: { img: 'image/west_corridor.JPG', next: ['D'], prev: 'B' },
+    D: { img: 'image/west_toilet_front.JPG', next: ['E', 'A', 'C'], prev: 'B' },
+    E: { img: 'image/west_toilet_man.JPG', next: [], prev: 'D' },
+};
+
+let currentScene = 'A';
+let viewer = null;
+const overlay = document.getElementById('overlay');
+
+function loadScene(sceneId) {
+    // オーバーレイを表示
+    overlay.classList.add('is-visible');
+
+    // 1秒後に新しいシーンをロードし、オーバーレイを非表示にする
+    setTimeout(() => {
+        currentScene = sceneId;
+        document.getElementById('panorama').innerHTML = '';
+        viewer = pannellum.viewer('panorama', {
+            type: 'equirectangular',
+            panorama: scenes[sceneId].img,
+            autoLoad: true
+        });
+
+        updateButtons();
+        overlay.classList.remove('is-visible');
+    }, 1000); // 1000ms = 1秒
+}
+
+function updateButtons() {
+    const nextNodes = scenes[currentScene].next;
+    const btnLeft = document.getElementById('btnLeft');
+    const btnForward = document.getElementById('btnForward');
+    const btnRight = document.getElementById('btnRight');
+    const btnBack = document.getElementById('btnBack');
+
+    btnLeft.disabled = true;
+    btnLeft.textContent = '---';
+    btnForward.disabled = true;
+    btnForward.textContent = '---';
+    btnRight.disabled = true;
+    btnRight.textContent = '---';
+
+    if (nextNodes.length >= 1) {
+        btnForward.disabled = false;
+        btnForward.textContent = '▲ 進む';
+        btnForward.onclick = () => loadScene(nextNodes[0]);
+    }
+    if (nextNodes.length >= 2) {
+        btnLeft.disabled = false;
+        btnLeft.textContent = '◀ 左';
+        btnLeft.onclick = () => loadScene(nextNodes[1]);
+    }
+    if (nextNodes.length >= 3) {
+        btnRight.disabled = false;
+        btnRight.textContent = '右 ▶';
+        btnRight.onclick = () => loadScene(nextNodes[2]);
+    }
+
+    if (scenes[currentScene].prev) {
+        btnBack.disabled = false;
+        btnBack.textContent = '▼ 戻る';
+        btnBack.onclick = () => loadScene(scenes[currentScene].prev);
+    } else {
+        btnBack.disabled = true;
+        btnBack.textContent = '---';
+    }
+}
+
+document.getElementById('fs').addEventListener('click', ()=>{
+    const el = document.documentElement;
+    if(!document.fullscreenElement) el.requestFullscreen().catch(()=>{});
+    else document.exitFullscreen().catch(()=>{});
+});
+
+// 初回ロード時もオーバーレイを使用
+overlay.classList.add('is-visible');
+setTimeout(() => {
+  loadScene(currentScene);
+  overlay.classList.remove('is-visible');
+}, 1000);
+</script>
+</body>
+</html>

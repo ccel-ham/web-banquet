@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>360° Viewer — Fullscreen</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+  <style>
+    html,body{height:100%;margin:0}
+    #panorama{width:100%;height:100vh;background:#000}
+    .controls{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:24px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      z-index:9999;
+      align-items:center;
+    }
+    .forward-group .back-group{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+    }
+    button.ctrl{
+      appearance:none;
+      border:0;
+      padding:12px 18px;
+      font-size:16px;
+      border-radius:10px;
+      background:rgba(0,0,0,0.6);
+      color:#fff;
+      backdrop-filter:blur(4px);
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35)
+    }
+    button.ctrl:disabled{
+      background:rgba(80,80,80,0.6);
+      color:#aaa;
+      cursor:not-allowed
+    }
+    button.ctrl:active{transform:translateY(1px)}
+    .fs-btn{position:fixed;right:16px;top:16px;z-index:9999}
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div id="panorama"></div>
+
+  <div class="controls">
+    <div class="forward-group">
+      <button id="fbtnLeft" class="ctrl">◀ 左</button>
+      <button id="fbtnForward" class="ctrl">▲ 進む</button>
+      <button id="fbtnRight" class="ctrl">右 ▶</button>
+    </div>
+    <div class="back-group">
+      <button id="bbtnLeft" class="ctrl">◀ 左</button>
+      <button id="bbtnForward" class="ctrl">▼ 戻る</button>
+      <button id="bbtnRight" class="ctrl">右 ▶</button>
+    </div>
+  </div>
+
+  <button id="fs" class="ctrl fs-btn">フルスクリーン</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  
+<script>
+const scenes = {
+    A: { img: 'image/outside.JPG', next: ['B'], prev: null },
+    B: { img: 'image/entrance.JPG', next: ['C', 'D'], prev: ['A'] },
+    C: { img: 'image/west_corridor.JPG', next: ['D'], prev: ['B'] },
+    D: { img: 'image/west_toilet_front.JPG', next: ['E', 'A', 'C'], prev: ['B', 'C'] },
+    E: { img: 'image/west_toilet_man.JPG', next: ['F'], prev: ['D'] },
+};
+
+let currentScene = 'A';
+let viewer = null;
+
+function loadScene(sceneId) {
+    currentScene = sceneId;
+
+    // 既存ビューアを破棄して再生成
+    document.getElementById('panorama').innerHTML = '';
+    viewer = pannellum.viewer('panorama', {
+        type: 'equirectangular',
+        panorama: scenes[sceneId].img,
+        autoLoad: true,
+        "hfov": 120 // ここで水平視野角を指定
+    });
+
+    updateButtons();
+}
+
+function updateButtons() {
+
+  const nextNodes = scenes[currentScene].next;
+  const prevNodes = scenes[currentScene].prev;
+
+  const fbtnLeft = document.getElementById('fbtnLeft');
+  const fbtnForward = document.getElementById('fbtnForward');
+  const fbtnRight = document.getElementById('fbtnRight');
+  const bbtnLeft = document.getElementById('bbtnLeft');
+  const bbtnForward = document.getElementById('bbtnForward');
+  const bbtnRight = document.getElementById('bbtnRight');
+
+  // すべて非表示
+  fbtnLeft.classList.add('hidden');
+  fbtnForward.classList.add('hidden');
+  fbtnRight.classList.add('hidden');
+  bbtnLeft.classList.add('hidden');
+  bbtnForward.classList.add('hidden');
+  bbtnRight.classList.add('hidden');
+
+  // next配列に応じて表示
+  if (nextNodes.length >= 1) {
+      fbtnForward.classList.remove('hidden');
+      fbtnForward.onclick = () => loadScene(nextNodes[0]);
+  }
+  if (nextNodes.length >= 2) {
+      fbtnLeft.classList.remove('hidden');
+      fbtnLeft.onclick = () => loadScene(nextNodes[1]);
+  }
+  if (nextNodes.length >= 3) {
+      fbtnRight.classList.remove('hidden');
+      fbtnRight.onclick = () => loadScene(nextNodes[2]);
+  }
+  // prev配列に応じて表示
+  if (prevNodes.length >= 1) {
+      bbtnForward.classList.remove('hidden');
+      bbtnForward.onclick = () => loadScene(prevNodes[0]);
+  }
+  if (prevNodes.length >= 2) {
+      bbtnLeft.classList.remove('hidden');
+      bbtnLeft.onclick = () => loadScene(prevNodes[1]);
+  }
+  if (prevNodes.length >= 3) {
+      bbtnRight.classList.remove('hidden');
+      bbtnRight.onclick = () => loadScene(prevNodes[2]);
+  }
+
+}
+
+document.getElementById('fs').addEventListener('click', ()=>{
+    const el = document.documentElement;
+    if(!document.fullscreenElement) el.requestFullscreen().catch(()=>{});
+    else document.exitFullscreen().catch(()=>{});
+});
+
+loadScene(currentScene);
+</script>
+</body>
+</html>

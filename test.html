@@ -267,14 +267,17 @@
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script>
     const scenes = {
-      A: { img: 'image/outside.JPG', label: '外観', sidebar: true, next: ['B'], prev: [] },
-      B: { img: 'image/entrance.JPG', label: '入口', sidebar: true, next: ['C'], prev: ['A'] },
-      C: { img: 'image/west_corridor.JPG', label: '西廊下', sidebar: false, next: ['G', 'D'], prev: ['B'] },
-      D: { img: 'image/west_toilet_front.JPG', label: 'トイレ前', sidebar: false, next: ['E', 'F'], prev: ['C'] },
-      E: { img: 'image/west_toilet_man.JPG', label: '男子トイレ', sidebar: false, next: [], prev: ['D'] },
-      F: { img: 'image/west_toilet_woman.JPG', label: '女子トイレ', sidebar: false, next: [], prev: ['D'] },
-      G: { img: 'image/banquet_northwest.JPG', label: '宴会場 北西', sidebar: true, next: ['H'], prev: ['C'] },
-      H: { img: 'image/banquet_center.JPG', label: '宴会場 中央', sidebar: true, next: [], prev: ['G'] },
+      A: { img: 'image/outside.JPG', label: '外観',text:false, sidebar: true, next: ['B'], prev: [] },
+      B: { img: 'image/entrance.JPG', label: '入口',text:false, sidebar: true, next: ['C'], prev: ['A'] },
+      C: { img: 'image/west_corridor.JPG', label: '西廊下',text:true, sidebar: false, next: ['E', 'D'], prev: ['B'] },
+      D: { img: 'image/banquet_northwest.JPG', label: '宴会場 北西',text:true, sidebar: true, next: ['H'], prev: ['C'] },
+      E: { img: 'image/west_toilet_front.JPG', label: 'トイレ前',text:true, sidebar: false, next: ['F', 'G'], prev: ['C'] },
+      F: { img: 'image/west_toilet_woman.JPG', label: '女子トイレ',text:true, sidebar: false, next: [], prev: ['E'] },
+      G: { img: 'image/west_toilet_man.JPG', label: '男子トイレ',text:true, sidebar: false, next: [], prev: ['E'] },
+      H: { img: 'image/banquet_center.JPG', label: '宴会場 中央',text:true, sidebar: true, next: ['I'], prev: ['G'] },
+      I: { img: 'image/east_toilet_front.JPG', label: '東トイレ前',text:true, sidebar: true, next: ['J','K'], prev: ['H'] },
+      J: { img: 'image/east_toilet_woman.JPG', label: '女子トイレ',text:true, sidebar: true, next: [], prev: ['I'] },
+      K: { img: 'image/east_toilet_man.JPG', label: '男子トイレ',text:true, sidebar: true, next: [], prev: ['I'] },
     };
 
     let currentScene = 'A';
@@ -302,7 +305,15 @@
       });
     }
 
-
+    function buttonText(scene, forward=true){
+      if (!forward){
+        return "▼戻る"
+      }else if(scene.text && scene.label){
+        return scene.label
+      }else{
+        return "▲進む"
+      }
+    }
 
     function updateButtons() {
       const nextNodes = scenes[currentScene].next;
@@ -317,32 +328,32 @@
 
       if (nextNodes.length >= 1) {
         fbtnForward.classList.remove('hidden');
-        fbtnForward.textContent = scenes[nextNodes[0]].label; // ラベルを設定
+        fbtnForward.textContent = buttonText(scenes[nextNodes[0]]); // ラベルを設定
         fbtnForward.onclick = () => loadScene(nextNodes[0]);
       }
       if (nextNodes.length >= 2) {
         fbtnLeft.classList.remove('hidden');
-        fbtnLeft.textContent = scenes[nextNodes[1]].label; // ラベルを設定
+        fbtnLeft.textContent = buttonText(scenes[nextNodes[1]]); // ラベルを設定
         fbtnLeft.onclick = () => loadScene(nextNodes[1]);
       }
       if (nextNodes.length >= 3) {
         fbtnRight.classList.remove('hidden');
-        fbtnRight.textContent = scenes[nextNodes[2]].label; // ラベルを設定
+        fbtnRight.textContent = buttonText(scenes[nextNodes[2]]); // ラベルを設定
         fbtnRight.onclick = () => loadScene(nextNodes[2]);
       }
       if (prevNodes.length >= 1) {
         bbtnForward.classList.remove('hidden');
-        bbtnForward.textContent = scenes[prevNodes[0]].label; // ラベルを設定
+        bbtnForward.textContent = buttonText(scenes[prevNodes[0]], forward=false); // ラベルを設定
         bbtnForward.onclick = () => loadScene(prevNodes[0]);
       }
       if (prevNodes.length >= 2) {
         bbtnLeft.classList.remove('hidden');
-        bbtnLeft.textContent = scenes[prevNodes[1]].label; // ラベルを設定
+        bbtnLeft.textContent = buttonText(scenes[prevNodes[1]], forward=false); // ラベルを設定
         bbtnLeft.onclick = () => loadScene(prevNodes[1]);
       }
       if (prevNodes.length >= 3) {
         bbtnRight.classList.remove('hidden');
-        bbtnRight.textContent = scenes[prevNodes[2]].label; // ラベルを設定
+        bbtnRight.textContent = buttonText(scenes[prevNodes[2]], forward=false); // ラベルを設定
         bbtnRight.onclick = () => loadScene(prevNodes[2]);
       }
     }

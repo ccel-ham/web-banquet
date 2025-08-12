@@ -302,6 +302,8 @@
       });
     }
 
+
+
     function updateButtons() {
       const nextNodes = scenes[currentScene].next;
       const prevNodes = scenes[currentScene].prev;
@@ -313,12 +315,36 @@
       const bbtnRight = document.getElementById('bbtnRight');
       [fbtnLeft, fbtnForward, fbtnRight, bbtnLeft, bbtnForward, bbtnRight].forEach(b => b.classList.add('hidden'));
 
-      if (nextNodes.length >= 1) { fbtnForward.classList.remove('hidden'); fbtnForward.onclick = () => loadScene(nextNodes[0]); }
-      if (nextNodes.length >= 2) { fbtnLeft.classList.remove('hidden'); fbtnLeft.onclick = () => loadScene(nextNodes[1]); }
-      if (nextNodes.length >= 3) { fbtnRight.classList.remove('hidden'); fbtnRight.onclick = () => loadScene(nextNodes[2]); }
-      if (prevNodes.length >= 1) { bbtnForward.classList.remove('hidden'); bbtnForward.onclick = () => loadScene(prevNodes[0]); }
-      if (prevNodes.length >= 2) { bbtnLeft.classList.remove('hidden'); bbtnLeft.onclick = () => loadScene(prevNodes[1]); }
-      if (prevNodes.length >= 3) { bbtnRight.classList.remove('hidden'); bbtnRight.onclick = () => loadScene(prevNodes[2]); }
+      if (nextNodes.length >= 1) {
+        fbtnForward.classList.remove('hidden');
+        fbtnForward.textContent = scenes[nextNodes[0]].label; // ラベルを設定
+        fbtnForward.onclick = () => loadScene(nextNodes[0]);
+      }
+      if (nextNodes.length >= 2) {
+        fbtnLeft.classList.remove('hidden');
+        fbtnLeft.textContent = scenes[nextNodes[1]].label; // ラベルを設定
+        fbtnLeft.onclick = () => loadScene(nextNodes[1]);
+      }
+      if (nextNodes.length >= 3) {
+        fbtnRight.classList.remove('hidden');
+        fbtnRight.textContent = scenes[nextNodes[2]].label; // ラベルを設定
+        fbtnRight.onclick = () => loadScene(nextNodes[2]);
+      }
+      if (prevNodes.length >= 1) {
+        bbtnForward.classList.remove('hidden');
+        bbtnForward.textContent = scenes[prevNodes[0]].label; // ラベルを設定
+        bbtnForward.onclick = () => loadScene(prevNodes[0]);
+      }
+      if (prevNodes.length >= 2) {
+        bbtnLeft.classList.remove('hidden');
+        bbtnLeft.textContent = scenes[prevNodes[1]].label; // ラベルを設定
+        bbtnLeft.onclick = () => loadScene(prevNodes[1]);
+      }
+      if (prevNodes.length >= 3) {
+        bbtnRight.classList.remove('hidden');
+        bbtnRight.textContent = scenes[prevNodes[2]].label; // ラベルを設定
+        bbtnRight.onclick = () => loadScene(prevNodes[2]);
+      }
     }
 
     // サイドバー生成（sidebar: true のみ表示）
